@@ -144,10 +144,12 @@ async function createAppServer(){
   })
 
   app.listen(SERVER_PORT,()=>{
+    const url = `http://localhost:${SERVER_PORT}`
     console.log(
       colors.green('[React SSR]启动成功, 地址为:'),
-      colors.green.underline(`http://localhost:${SERVER_PORT}`),
+      colors.green.underline(url),
     )
+    require('child_process').exec(`open ${url}`)
   })
 }
 
