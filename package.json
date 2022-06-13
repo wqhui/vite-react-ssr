@@ -1,0 +1,45 @@
+{
+  "name": "vite-react-ssr",
+  "version": "0.0.1",
+  "description": "React SSR With Vite, Koa and React-RouterV6",
+  "keywords": [
+    "SSR",
+    "react",
+    "react-router",
+    "vite",
+    "koa"
+  ],
+  "scripts": {
+    "dev": "nodemon server",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "vite build --outDir dist/client",
+    "build:server": "vite build --outDir dist/server --ssr src/entry-server.tsx",
+    "serve": "npm run build && cross-env NODE_ENV=production node server",
+    "serve:local": "cross-env NODE_ENV=production nodemon server",
+    "prerender": "vite build --outDir dist/static && npm run build:server && node prerender"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.8.2",
+    "child_process": "^1.0.2",
+    "cross-env": "^7.0.3",
+    "koa": "^2.13.4",
+    "koa-compress": "^5.1.0",
+    "koa-connect": "^2.1.0",
+    "koa-static": "^5.0.0",
+    "nodemon": "^2.0.16",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^8.0.2",
+    "react-router-dom": "^6.3.0"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.45",
+    "@types/react-dom": "^17.0.17",
+    "@vitejs/plugin-react": "^1.3.0",
+    "colors": "^1.4.0",
+    "typescript": "^4.6.3",
+    "vite": "^2.9.9"
+  },
+  "author": "wqhui",
+  "license": "MIT"
+}
