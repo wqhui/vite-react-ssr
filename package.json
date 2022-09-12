@@ -10,13 +10,12 @@
     "koa"
   ],
   "scripts": {
-    "dev": "nodemon server",
+    "dev": "nodemon --watch server.ts --exec 'ts-node server.ts'",
     "build": "npm run build:client && npm run build:server",
     "build:client": "vite build --outDir dist/client",
     "build:server": "vite build --outDir dist/server --ssr src/entry-server.tsx",
-    "serve": "npm run build && cross-env NODE_ENV=production node server",
-    "serve:local": "cross-env NODE_ENV=production nodemon server",
-    "prerender": "vite build --outDir dist/static && npm run build:server && node prerender"
+    "serve": "npm run build && cross-env NODE_ENV=production ts-node server.ts",
+    "prerender": "vite build --outDir dist/static && npm run build:server && ts-node prerender"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.2",
@@ -30,9 +29,13 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^8.0.2",
-    "react-router-dom": "^6.3.0"
+    "react-router-dom": "^6.3.0",
+    "ts-node": "^10.9.1"
   },
   "devDependencies": {
+    "@types/koa": "^2.13.5",
+    "@types/koa-compress": "^4.0.3",
+    "@types/koa-static": "^4.0.2",
     "@types/react": "^17.0.45",
     "@types/react-dom": "^17.0.17",
     "@vitejs/plugin-react": "^1.3.0",

@@ -3,35 +3,36 @@
  * @Date: 2022-05-31 15:20:18
  * @Description:  app服务启动和服务端渲染处理逻辑
  */
-const fs = require('fs')
-const path = require('path')
+import fs from 'fs'
+import path from 'path'
 
-const Koa = require('koa')
-const koaConnect = require('koa-connect')
+import Koa from 'koa'
+import koaConnect from 'koa-connect'
+import { createServer as createViteServer, ViteDevServer } from "vite";
 
-const colors = require('colors')
+import colors from 'colors'
+import child_process from 'child_process'
 
-const SERVER_PORT = 2333
-const SERVER_HTML_ERROR = 'server_html_error'
+const SERVER_PORT:number = 2333
+const SERVER_HTML_ERROR:string = 'server_html_error'
 
 //区分集成生产环境
-const IS_PROP = process.env.NODE_ENV === 'production';
+const IS_PROP:boolean = process.env.NODE_ENV === 'production';
+
 
 async function createAppServer(){
 
-  const resolve = (p) => path.resolve(__dirname, p)
+  const resolve = (p:string) => path.resolve(__dirname, p)
 
   const app = new Koa()
 
-  let vite
+  let vite : ViteDevServer
   //启动服务
   if(!IS_PROP){
     //开发模式使用 vite 服务器
 
     // 以中间件模式创建 Vite 服务器
-    vite = await (
-      require('vite')
-    ).createServer({
+    vite = await createViteServer({
       server: { middlewareMode: 'ssr' }
     })
 
@@ -40,14 +41,14 @@ async function createAppServer(){
   }else{
     //生产模式使用 静态 服务器
     //压缩代码
-    app.use(require('koa-compress')())
+    app.use((await import('koa-compress')).default())
 
     //启动静态服务器
-    app.use(require('koa-static')(
+    app.use((await import('koa-static')).default(
       resolve('dist/client'), {
         index: false
       }
-    ))    
+    )) 
   }
 
 
@@ -57,7 +58,7 @@ async function createAppServer(){
     const { url } = req
 
     try {
-      let template, render
+      let template:string, render
 
       if(!IS_PROP){
         //开发模式
@@ -73,7 +74,7 @@ async function createAppServer(){
         //    这将会注入 Vite HMR 客户端，
         //    同时也会从 Vite 插件应用 HTML 转换。
         //    例如：@vitejs/plugin-react 中的 global preambles
-        template = await vite.transformIndexHtml(url, template)
+        template = await vite.transformIndexHtml(url || '', template)
     
         // 3. 加载服务端入口。
         //    vite.ssrLoadModule 将自动转换
@@ -87,7 +88,7 @@ async function createAppServer(){
         template = fs.readFileSync(resolve('dist/client/index.html'), 'utf-8')
 
         //读取打包的服务端入口
-        render = (await require(resolve('dist/server/entry-server.js'))).render
+        render = (await import(resolve('dist/server/entry-server.js'))).render
       }
 
 
@@ -95,7 +96,7 @@ async function createAppServer(){
       // 4. 渲染应用的 HTML。这假设 entry-server.js 导出的 `render`
       //    函数调用了适当的 SSR 框架 API。
       //    例如 ReactDOMServer.renderToString()
-      const context = {}
+      const context: { preloadedState?:string }  = {}
       const appHtml = await render(url, context)
   
       // 5. 注入渲染后的应用程序 HTML 到模板中。
@@ -116,7 +117,7 @@ async function createAppServer(){
       // if(context.status===404){
       //   ctx.status = 404
       // }
-    } catch (e) {
+    } catch (e: any) {
       if(!IS_PROP){
         // 如果捕获到了一个错误，让 Vite 来修复该堆栈，这样它就可以映射回
         // 你的实际源码中。
@@ -143,15 +144,18 @@ async function createAppServer(){
     }
   })
 
+  
+
   app.listen(SERVER_PORT,()=>{
     const url = `http://localhost:${SERVER_PORT}`
     console.log(
       colors.green('[React SSR]启动成功, 地址为:'),
       colors.green.underline(url),
     )
-    require('child_process').exec(`open ${url}`)
+    child_process.exec(`open ${url}`)
   })
 }
+
 
 createAppServer()
 

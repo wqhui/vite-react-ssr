@@ -1,3 +1,5 @@
+import { ActionData } from '../interface'
+
 const MOCK_HOME_VALUE = [
   {
     id:'1',
@@ -15,7 +17,7 @@ const MOCK_HOME_VALUE = [
 
 const TYPE = 'state/setStoreProp'
 
-export function getHomeData(){
+export function getHomeData() : ActionData {
   return {
     payload: {
       key: 'home',
@@ -30,7 +32,7 @@ const MOACK_ABOUT_DATA  = {
   slogan: '人的梦想是不会终结的！'
 }
 
-export function getAboutData(){
+export function getAboutData() : ActionData {
   return {
     payload:{
       key: 'about',

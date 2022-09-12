@@ -1,6 +1,6 @@
 import { createSlice, configureStore } from '@reduxjs/toolkit'
 
-import { StoreRecord } from '../interface'
+import { StoreRecord, PreLoadState } from '../interface'
 
 const INIT_STOTE : StoreRecord = {};
 
@@ -21,9 +21,9 @@ export const getServerStore = () => configureStore({
 
 export const getClientStore = () => {
   //客户端数据脱水，获取服务端缓存的数据
-  const preloadedState = window.PRE_LOADED_STATE
+  const preloadedState: PreLoadState = (window as any).PRE_LOADED_STATE || {}
   return configureStore({
     reducer: storeSlice.reducer,
-    preloadedState: preloadedState || {}
+    preloadedState: preloadedState 
   })
 }

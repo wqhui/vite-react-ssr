@@ -31,7 +31,7 @@ function About({
 
 About.getInitialProps = () => {
   const data = getAboutData()
-  console.log('[server] getHomeData:', data)
+  console.log('[server] getAboutData:', data)
   return Promise.resolve(data)
 }
 
@@ -42,7 +42,7 @@ const mapStateToProps = (state: StoreRecord) => ({
 const mapDispatchToProps = (dispatch:Dispatch) => ({
   getData() {
     const data = getAboutData()
-    console.log('[client] getHomeData:', data)
+    console.log('[client] getAboutData:', data)
     dispatch(data);
   }
 });
