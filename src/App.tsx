@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
 import logo from './logo.svg'
-import './App.css'
+import styles from './App.module.less'
 import RoutesContent from './router/RoutesContent'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className={styles['app']}>
+      <header className={styles['app-header']}>
         <img
           src={logo}
-          className="App-logo"
+          className={styles['app-logo']}
           alt="logo"
           style={{ height: '100px' }}
         />
@@ -22,7 +22,7 @@ function App() {
           </button>
         </p>
       </header>
-      <div className="App-content">
+      <div className={styles['app-content']}>
         <RoutesContent />
       </div>
     </div>
