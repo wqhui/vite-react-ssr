@@ -7,6 +7,8 @@
 * [Vite with Vite SSR](https://vitejs.dev/guide/ssr.html)
 * [Koa](https://koajs.com/)
 * [React-Router 6](https://reactrouter.com/docs/en/v6/getting-started/tutorial)
+* [Prettier](https://prettier.io/) & [ESLint](https://eslint.org/)
+* [Less](https://lesscss.org/) & [Stylelint](https://stylelint.io/)
 
 ## 开发模式
 
@@ -28,9 +30,9 @@ npm run serve
 
 `index.html` - `vite` 入口文件，包括客户端的入口引用
 
-`prerender.js` - 预渲染 HTML
+`prerender.ts` - 预渲染 HTML
 
-`server.js` - 具有服务端渲染的应用服务器
+`server.ts` - 具有服务端渲染的应用服务器
 
 `src/entry-client.tsx` - 客户端渲染入口，将应用挂载到一个 DOM 元素上
 
@@ -40,15 +42,18 @@ npm run serve
 
 `src/pages` - 不同路由的页面文件夹
 
+`.eslintrc.js` - `ESLint` 配置
+
+`.prettierrc.js` - `Prettier` 配置
+
+`stylelint.config.js` - `Stylelint` 配置
+
 `tsconfig.json` - `TypeScript` 配置
 
 `vite.config.ts` - `Vite` 配置
 
 ## TODO
 
-- 补全 `TypeScript` 接口
-- 增加 `Prettier` 和 `ESLint`
-- 重构样式为 `less`
 - 支持单元测试 
 
 
