@@ -8,17 +8,18 @@ import path from 'path'
 
 const absolute = (p: string) => path.resolve(__dirname, p)
 
-const template: string = fs.readFileSync(absolute('dist/static/index.html'), 'utf-8')
+const template: string = fs.readFileSync(
+  absolute('dist/static/index.html'),
+  'utf-8'
+)
 
 // 判断那些页面是需要预渲染的
-const routesToPrerender = fs
-  .readdirSync(absolute('src/pages'))
-  .map(file => {
-    const name = file.replace(/\.tsx$/, '').toLowerCase()
-    return name === 'home' ? `/` : `/${name}`
-  })
+const routesToPrerender = fs.readdirSync(absolute('src/pages')).map((file) => {
+  const name = file.replace(/\.tsx$/, '').toLowerCase()
+  return name === 'home' ? `/` : `/${name}`
+})
 
-async function prerender(){
+async function prerender() {
   // 遍历需要预渲染的页面
   const { render } = await import(absolute('dist/server/entry-server.js'))
 

@@ -1,32 +1,33 @@
-import React,{ useEffect, useState } from "react";
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
 
 import { getAboutData } from '../store/action'
-import { StoreRecord, Dispatch} from '../interface'
-
+import { StoreRecord, Dispatch } from '../interface'
 
 function About({
-  getData, data
-}:{
+  getData,
+  data,
+}: {
   getData: () => void
-  data?: {[key:string]: any}
+  data?: { [key: string]: any }
 }) {
-  useEffect(()=>{
-    if(!data){
+  useEffect(() => {
+    if (!data) {
       getData()
     }
-  },[])
+  }, [])
   return (
     <div>
-      <h2>关于</h2>
+      <h2>About</h2>
       <div>
-        { data 
-          ? <span>姓名: {data.name}  <br/> 一言: {data.slogan}</span>
-          : null
-        }
+        {data ? (
+          <span>
+            Name: {data.name} <br /> Slogan: {data.slogan}
+          </span>
+        ) : null}
       </div>
     </div>
-  );
+  )
 }
 
 About.getInitialProps = () => {
@@ -36,15 +37,15 @@ About.getInitialProps = () => {
 }
 
 const mapStateToProps = (state: StoreRecord) => ({
-  data: state.about
-});
+  data: state.about,
+})
 
-const mapDispatchToProps = (dispatch:Dispatch) => ({
+const mapDispatchToProps = (dispatch: Dispatch) => ({
   getData() {
     const data = getAboutData()
     console.log('[client] getAboutData:', data)
-    dispatch(data);
-  }
-});
+    dispatch(data)
+  },
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(About);
+export default connect(mapStateToProps, mapDispatchToProps)(About)

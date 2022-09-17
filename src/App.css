@@ -1,5 +1,26 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+a,a:visited{
+  color: #02a3cf;
+}
+
+
 .App {
   text-align: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .App-logo {
@@ -41,3 +62,29 @@ button {
   font-size: calc(10px + 2vmin);
 }
 
+.App-content{
+  display: flex;
+  flex-grow: 1;
+}
+
+.App-content > nav{
+  border-right: 1px solid rgb(238, 238, 238);
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.App-content > nav li{
+  padding: 4px 0;
+}
+
+
+
+.App-content > div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+}

@@ -1,25 +1,25 @@
-import React from "react";
-import { Outlet, Link } from "react-router-dom";
+import React from 'react'
+import { Outlet, Link } from 'react-router-dom'
 
 import Home from '../pages/Home'
 import About from '../pages/About'
-import NoMatch from "../pages/NoMatch";
+import NoMatch from '../pages/NoMatch'
 
 export const routes = [
   {
-    path: "/",
+    path: '/',
     element: <RouteNav />,
-    children:[
+    children: [
       { index: true, element: <Home /> },
-      { path: "about", element: <About /> },
-      { path: "*", element: <NoMatch /> },
-    ]
+      { path: 'about', element: <About /> },
+      { path: '*', element: <NoMatch /> },
+    ],
   },
 ]
 
 function RouteNav() {
   return (
-    <div>
+    <>
       <nav>
         <ul>
           <li>
@@ -33,10 +33,7 @@ function RouteNav() {
           </li>
         </ul>
       </nav>
-
-      <hr />
-
       <Outlet />
-    </div>
-  );
+    </>
+  )
 }

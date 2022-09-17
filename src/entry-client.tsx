@@ -3,14 +3,15 @@
  * @Date: 2022-05-31 19:09:31
  * @Description:  客户端入口文件
  */
+import React from 'react'
 import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux';
+import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 
-import  App  from './App'
-import { getClientStore } from './store';
+import App from './App'
+import { getClientStore } from './store'
 
-function render(){
+function render() {
   const store = getClientStore()
   ReactDOM.hydrate(
     <BrowserRouter>

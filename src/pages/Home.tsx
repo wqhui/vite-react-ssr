@@ -1,31 +1,30 @@
-import React,{ useEffect } from "react";
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
 
 import { getHomeData } from '../store/action'
-import { StoreRecord, Dispatch} from '../interface'
+import { StoreRecord, Dispatch } from '../interface'
 
-function Home({
-  getData, data
-}:{
-  getData: () => void
-  data?: any[]
-}) {
-  useEffect(()=>{
-    if(!data){
+function Home({ getData, data }: { getData: () => void; data?: any[] }) {
+  useEffect(() => {
+    if (!data) {
       getData()
     }
-  },[])
+  }, [])
   return (
     <div>
-      <h2>首页</h2>
+      <h2>Home</h2>
       <div>
-        {
-          data ? <span>单词表: {data.map(item=><span key={item.id}>{item.word} </span>)}</span> 
-          : null
-        }
+        {data ? (
+          <span>
+            Word List:{' '}
+            {data.map((item) => (
+              <span key={item.id}>{item.word} </span>
+            ))}
+          </span>
+        ) : null}
       </div>
     </div>
-  );
+  )
 }
 
 Home.getInitialProps = () => {
@@ -34,19 +33,18 @@ Home.getInitialProps = () => {
   return Promise.resolve(data)
 }
 
-
 const mapStateToProps = (state: StoreRecord) => {
   return {
-    data: state.home
+    data: state.home,
   }
-};
+}
 
-const mapDispatchToProps = (dispatch:Dispatch) => ({
+const mapDispatchToProps = (dispatch: Dispatch) => ({
   getData() {
     const data = getHomeData()
     console.log('[client] getHomeData:', data)
-    dispatch(data);
-  }
-});
+    dispatch(data)
+  },
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

@@ -2,42 +2,42 @@ import { ActionData } from '../interface'
 
 const MOCK_HOME_VALUE = [
   {
-    id:'1',
-    word: 'accordion'
+    id: '1',
+    word: 'accordion',
   },
   {
-    id:'2',
-    word:'agile'
+    id: '2',
+    word: 'agile',
   },
   {
-    id:'3',
-    word:'arbitrary'
-  }
+    id: '3',
+    word: 'arbitrary',
+  },
 ]
 
 const TYPE = 'state/setStoreProp'
 
-export function getHomeData() : ActionData {
+export function getHomeData(): ActionData {
   return {
     payload: {
       key: 'home',
-      value: MOCK_HOME_VALUE,  
+      value: MOCK_HOME_VALUE,
     },
-    type: TYPE
+    type: TYPE,
   }
 }
 
-const MOACK_ABOUT_DATA  = {
-  name:'无一',
-  slogan: '人的梦想是不会终结的！'
+const MOACK_ABOUT_DATA = {
+  name: 'wuyi',
+  slogan: "People's dreams never end!",
 }
 
-export function getAboutData() : ActionData {
+export function getAboutData(): ActionData {
   return {
-    payload:{
+    payload: {
       key: 'about',
       value: MOACK_ABOUT_DATA,
     },
-    type: TYPE
+    type: TYPE,
   }
 }
